@@ -1,0 +1,87 @@
+// <----- By using annotations -----> //
+
+package com.abdul.java.SpringCore.Component;
+import org.springframework.stereotype.Component;
+@Component
+public class Product {
+	private int Pid;
+	private String Pname;
+	private double price;
+	public int getPid() {
+		return Pid;
+	}
+	public void setPid(int pid) {
+		Pid = pid;
+	}
+	public String getPname() {
+		return Pname;
+	}
+	public void setPname(String pname) {
+		Pname = pname;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public Product(int pid, String pname, double price) {
+		super();
+		Pid = pid;
+		Pname = pname;
+		this.price = price;
+	}
+	public Product() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "Product [Pid=" + Pid + ", Pname=" + Pname + ", price=" + price + "]";
+	}
+}
+
+
+package com.abdul.java.SpringCore.ConfiguartionClass;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.abdul.java.SpringCore.Component.Product;
+@Configuration
+public class ProductConfiguration {
+	@Bean("product")
+	public Product getProduct() {
+		Product product = new Product();
+		product.setPid(1);
+		product.setPname("Samsung");
+		product.setPrice(23123.56);
+		return product;
+	}
+	@Bean("product1")
+	public Product getProduct1() {
+		Product product1 = new Product();
+		product1.setPid(2);
+		product1.setPname("Oppo");
+		product1.setPrice(13143.26);
+		return product1;
+	}
+
+
+package com.abdul.java.SpringCore;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.abdul.java.SpringCore.ConfiguartionClass.ProductConfiguration;
+import com.abdul.java.SpringCore.Component.Product;
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(ProductConfiguration.class);
+    	  Product bean = ac.getBean("product", Product.class);
+    	  Product bean1 = ac.getBean("product1", Product.class);
+    	  System.out.println(bean);
+    	  System.out.println(bean1);
+    }
+}
+	

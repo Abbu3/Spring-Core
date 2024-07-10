@@ -1,0 +1,107 @@
+package com.abdul.java.SpringCore.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+@Component
+public class Laptop {
+	@Value("HP")
+	private String name;
+	@Value("56890.56")
+	private double price;
+	@Autowired
+	private Mobile mobile;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public Mobile getMobile() {
+		return mobile;
+	}
+	public void setMobile(Mobile mobile) {
+		this.mobile = mobile;
+	}
+	public Laptop(Mobile mobile2) {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "Laptop [name=" + name + ", price=" + price + ", mobile=" + mobile + "]";
+	}
+}
+
+
+package com.abdul.java.SpringCore.Component;
+import org.springframework.beans.factory.annotation.Value;
+public class Mobile {
+	@Value("OnePlus")
+	private String mName;
+	@Value("56344.23")
+	private double price;
+	public String getmName() {
+		return mName;
+	}
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	@Override
+	public String toString() {
+		return "Mobile [mName=" + mName + ", price=" + price + "]";
+	}
+	public Mobile() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+}
+
+
+package com.abdul.java.SpringCore.ConfiguartionClass;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import com.abdul.java.SpringCore.Component.Laptop;
+import com.abdul.java.SpringCore.Component.Mobile;
+@Configuration
+public class LaptopConfiguration {
+	@Bean("m")
+	public Mobile getMobile() {
+		Mobile m = new Mobile();
+		return m;
+	}
+	@Bean("l")
+	public Laptop getLaptop() {
+		Laptop l = new Laptop(getMobile());
+		return l;
+	}
+
+}
+
+
+package com.abdul.java.SpringCore;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.abdul.java.SpringCore.ConfiguartionClass.LaptopConfiguration;
+public class App 
+{
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(LaptopConfiguration.class);
+      	System.out.println(applicationContext.getBean("l", Laptop.class));
+    }
+}
+
+    	

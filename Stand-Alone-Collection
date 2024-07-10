@@ -1,0 +1,98 @@
+package com.abdul.java.SpringCore.Component;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.springframework.stereotype.Component;
+@Component
+public class A0 {
+	private List<String> name;
+	private Set<Integer> id;
+	private Map<Integer, Double> sal;
+	public List<String> getName() {
+		return name;
+	}
+	public void setName(List<String> name) {
+		this.name = name;
+	}
+	public Set<Integer> getId() {
+		return id;
+	}
+	public void setId(Set<Integer> id) {
+		this.id = id;
+	}
+	public Map<Integer, Double> getSal() {
+		return sal;
+	}
+	public void setSal(Map<Integer, Double> sal) {
+		this.sal = sal;
+	}
+	public A0(List<String> name, Set<Integer> id, Map<Integer, Double> sal) {
+		super();
+		this.name = name;
+		this.id = id;
+		this.sal = sal;
+	}
+	public A0() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "A0 [name=" + name + ", id=" + id + ", sal=" + sal + "]";
+	}
+}
+
+
+package com.abdul.java.SpringCore.ConfiguartionClass;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import com.abdul.java.SpringCore.Component.A0;
+@Configuration
+public class A0Configuration {
+	public List<String> getList() {
+		ArrayList<String> arrayList = new ArrayList<String>();
+		arrayList.add("Abdul");
+		arrayList.add("Abbu");
+		return arrayList;
+	}
+	public Set<Integer> getSet() {
+		HashSet<Integer> hashSet = new HashSet<Integer>();
+		hashSet.add(1);
+		return hashSet;
+		}
+	public Map<Integer, Double> getMap() {
+		HashMap<Integer, Double> hashMap = new HashMap<Integer, Double>();
+		hashMap.put(1, 34236.56);
+		return hashMap;
+	}
+	@Bean("a")
+	public A0 getA0() {
+		A0 a = new A0(); 
+		a.setName(getList());
+		a.setId(getSet());
+		a.setSal(getMap());
+		return a;
+	}
+}	
+
+
+package com.abdul.java.SpringCore;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.abdul.java.SpringCore.Component.A0;
+import com.abdul.java.SpringCore.ConfiguartionClass.A0Configuration;
+public class App {
+    public static void main( String[] args ) {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(A0Configuration.class);
+        System.out.println(applicationContext.getBean("a",A0.class));
+    }
+}
+
+
+

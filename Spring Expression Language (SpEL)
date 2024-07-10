@@ -1,0 +1,95 @@
+package com.abdul.java.SpringCore.Component;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+@Component
+public class A1 {
+	@Value("#{2+2}")
+	private int id;
+	@Value("#{new java.lang.String('java')}")
+	private String name;
+	@Value("#{5.10f}")
+	private float f;
+	@Value("#{27321.67}")
+	private double sal;
+	@Value("#{'m'}")
+	private char initial;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public float getF() {
+		return f;
+	}
+	public void setF(float f) {
+		this.f = f;
+	}
+	public double getSal() {
+		return sal;
+	}
+	public void setSal(double sal) {
+		this.sal = sal;
+	}
+	public char getInitial() {
+		return initial;
+	}
+	public void setInitial(char initial) {
+		this.initial = initial;
+	}
+	public A1() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "A1 [id=" + id + ", name=" + name + ", f=" + f + ", sal=" + sal + ", initial=" + initial + "]";
+	}
+}
+
+
+package com.abdul.java.SpringCore.ConfiguartionClass;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import com.abdul.java.SpringCore.Component.A1;
+@Configuration
+public class A1Configuration {
+	@Bean("a1")
+	public A1 getA1() {
+		A1 a = new A1();
+		return a;
+	}
+}
+
+
+package com.abdul.java.SpringCore;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.abdul.java.SpringCore.Component.A0;
+import com.abdul.java.SpringCore.Component.A1;
+import com.abdul.java.SpringCore.Component.Product;
+import com.abdul.java.SpringCore.ConfiguartionClass.A0Configuration;
+import com.abdul.java.SpringCore.ConfiguartionClass.A1Configuration;
+import com.abdul.java.SpringCore.ConfiguartionClass.LaptopConfiguration;
+import com.abdul.java.SpringCore.ConfiguartionClass.ProductConfiguration;
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(A1Configuration.class);
+        A1 bean = applicationContext.getBean("a1", A1.class);
+        System.out.println(bean);
+        System.out.println(bean.getF());
+    }
+}
+
+
+
